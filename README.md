@@ -1,8 +1,5 @@
-# 재사용가능한 Template 만들기
-> 기업과제를 진행하다보니 처음 보일러플레이트를 만드는데 드는 시간을 줄이고 싶다는 생각이 들었다.
-그래서 재사용가능한 템플릿을 만들어 놓기로 했다.
 
-## 모듈 설치
+## 모듈
 - React `$ npx creat-react-app template`
 - React-router-dom `$ npm i react-router-dom`
 - styled-component `$ npm install --save styled-component`
