@@ -1,70 +1,103 @@
-# Getting Started with Create React App
+# 재사용가능한 Template 만들기
+> 기업과제를 진행하다보니 처음 보일러플레이트를 만드는데 드는 시간을 줄이고 싶다는 생각이 들었다.
+그래서 재사용가능한 템플릿을 만들어 놓기로 했다.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 모듈 설치
+- React `$ npx creat-react-app template`
+- React-router-dom `$ npm i react-router-dom`
+- styled-component `$ npm install --save styled-component`
+- styled-reset `$ npm i styled-reset`
+: reset css 설정
+- redux `$npm i redux`
+- react-redux `$ npm install react-redux`
+: react와 redux를 연결시켜준다. provider 사용
+- redux-devtools-extension `$ npm i redux-devtools-extension` 
+: 크롬개발자도구로 리덕스 상태관리 기록을 확인 할수 있게 해준다.
+<div align="center"><img width="400px" src="https://images.velog.io/images/hinyc/post/de0c319d-21bc-48e1-a041-c5efb5499ce9/image.png"/></div>
+  
+<div align="center"><img width="250px" src="https://images.velog.io/images/hinyc/post/f353854e-4903-4827-ba20-5cb7c61007cb/image.png"/></div>
+  
 
-## Available Scripts
+## 설정 추가
+### reset css 설정
+#### `GlobalStyles.js` component 생성
+```jsx
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
+const GlobalStyles = createGlobalStyle` 
+  ${reset}
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+    *{
+        box-sizing: border-box;
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    input, textarea { 
+      -moz-user-select: auto;
+      -webkit-user-select: auto;
+      -ms-user-select: auto;
+      user-select: auto;
+    }
+    input {
+      border: none;
+    }
+    button {
+      border: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+    }
+`;
 
-In the project directory, you can run:
+export default GlobalStyles;
 
-### `npm start`
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**App component에 GlobalStyles Comoponet 추가**
+<div align="center"><img width="600px" src="https://images.velog.io/images/hinyc/post/decfa986-f57c-4496-b4ea-7ad967ed7b33/image.png"/></div>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+### prettirerc 설정
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img width="150px" src="https://images.velog.io/images/hinyc/post/44f7e756-d3f1-472a-b1df-fbf9d26d5fc9/image.png"/>
 
-### `npm run build`
+```js
+{
+  "singleQuote": true,
+  "semi": true,
+  "useTabs": false,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "printWidth": 200
+}
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## redux store 생성
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { createStore } from 'redux';
+import rootReducer from './modules';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+//!Provider를 이용해 <App/> 을 감싸면 모든 컴포넌트에서 store에 접근 가능
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+const store = createStore(rootReducer, composeWithDevTools());
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root'),
+);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+reportWebVitals();
+```
