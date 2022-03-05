@@ -10,7 +10,7 @@
 : react와 redux를 연결시켜준다. provider 사용
 - redux-devtools-extension `$ npm i redux-devtools-extension` 
 : 크롬개발자도구로 리덕스 상태관리 기록을 확인 할수 있게 해준다.
-<div align="center"><img width="400px" src="https://images.velog.io/images/hinyc/post/de0c319d-21bc-48e1-a041-c5efb5499ce9/image.png"/></div>
+<div align="center"><img width="400px" src="https://images.velog.io/images/hinyc/post/5a50d7fa-aa89-4701-924d-ae57f63793b3/image.png"/></div>
   
 <div align="center"><img width="250px" src="https://images.velog.io/images/hinyc/post/f353854e-4903-4827-ba20-5cb7c61007cb/image.png"/></div>
   
